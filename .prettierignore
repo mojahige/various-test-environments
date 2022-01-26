@@ -1,0 +1,15 @@
+# Next.js
+/.next/
+/out/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+src/public/
+src/stories/assets/
+.gitignore
+.editorconfig
+.prettierignore
+yarn.lock
