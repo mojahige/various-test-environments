@@ -5,4 +5,4 @@ export default {
   component: Hello,
 };
 
-export const HelloComponent = () => <Hello value="🐶" />;
+export const DefaultView = () => <Hello />;
