@@ -1,6 +1,10 @@
 {
   "name": "various-test-environments",
   "private": true,
+  "engines": {
+    "node": "^16.9.0"
+  },
+  "packageManager": "yarn@3.1.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
