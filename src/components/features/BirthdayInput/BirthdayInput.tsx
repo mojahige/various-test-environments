@@ -8,26 +8,26 @@ export type OnChangeArguments = {
 
 type Props = {
   onChange?: (args: OnChangeArguments) => void;
-  id?: string;
+  idPrefix?: string;
 };
 
 export const labels = ["year", "month", "day"] as const;
 
-export function BirthdayInput({ onChange, id }: Props) {
+export function BirthdayInput({ onChange, idPrefix }: Props) {
   return (
     <>
-      {labels.map((value, index) => (
-        <span key={value}>
+      {labels.map((label, index) => (
+        <span key={label}>
           <label
-            htmlFor={`${id ?? ""}${value}${index}`}
+            htmlFor={`${idPrefix ?? ""}${label}${index}`}
             style={{
               textTransform: "capitalize",
             }}
           >
-            {value}
+            {label}
           </label>
           <Input
-            id={`${id ?? ""}${value}${index}`}
+            id={`${idPrefix ?? ""}${label}${index}`}
             onChange={
               onChange
                 ? (event: React.ChangeEvent<HTMLInputElement>) =>
