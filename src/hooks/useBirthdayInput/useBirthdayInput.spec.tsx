@@ -1,5 +1,6 @@
-// import { render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
+import userEvent from "@testing-library/user-event";
 import { useBirthdayInput } from "./";
 
 test("should use birthday input", () => {
@@ -10,11 +11,29 @@ test("should use birthday input", () => {
   expect(render).toBeInstanceOf(Function);
 });
 
-// test("renders correctly", () => {
-//   const { result } = renderHook(() => useBirthdayInput());
-//   const useBirthdayInputRender = result.current[1];
+test("`useBirthdayInput` must return true if all input elements have a value.", async () => {
+  const Test = () => {
+    const [isAllHaveValue, render] = useBirthdayInput();
 
-//   render(<form>{useBirthdayInputRender()}</form>);
+    return (
+      <div>
+        <p>{String(isAllHaveValue)}</p>
+        {render()}
+      </div>
+    );
+  };
+  const { container } = render(<Test />);
+  const inputElements = container.querySelectorAll("input");
 
-//   screen.getAllByLabelText();
-// });
+  inputElements.forEach((inputElement, index) => {
+    userEvent.type(inputElement, `${index}`);
+
+    expect(
+      screen.getByText(index === inputElements.length - 1 ? "true" : "false")
+    ).toBeInTheDocument();
+  });
+
+  await userEvent.clear(inputElements[0]);
+
+  expect(screen.getByText("false")).toBeInTheDocument();
+});
