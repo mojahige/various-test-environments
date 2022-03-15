@@ -2,7 +2,10 @@ import { vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BirthdayInput, labels } from "./";
+import { axe, toHaveNoViolations } from "jest-axe";
 import type { OnChangeArguments } from "./";
+
+expect.extend(toHaveNoViolations);
 
 test("BirthdayInput component renders correctly", async () => {
   const { container } = render(<BirthdayInput />);
@@ -54,5 +57,14 @@ describe("props", () => {
       value: "t",
       index: 0,
     });
+  });
+});
+
+describe("a11y", () => {
+  test("No violations", async () => {
+    const { container } = render(<BirthdayInput />);
+    const results = await axe(container);
+
+    expect(results).toHaveNoViolations();
   });
 });
